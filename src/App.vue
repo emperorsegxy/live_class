@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="black"
+      dark
+    >
+      <div class="d-flex align-center">
+        <h2>Online Class</h2>
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        v-if="$route.name === 'Register' || $route.name === 'Login'"
+        :to="$route.name === 'Register' ? '/login' : '/'"
+        text
+      >
+        {{ $route.name === 'Register' ? 'Login' : 'Register' }}
+      </v-btn>
+      <v-btn v-else text @click="logout">
+        Log out
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  data: () => ({
+    //
+  }),
+  methods: {
+    logout() {
+      localStorage.removeItem('user')
+      const users = JSON.parse(localStorage.getItem('active_users'))
+      users.pop()
+      localStorage.setItem('active_users', JSON.stringify(users))
+      this.$router.push({name: 'Login'})
+    }
+  }
+};
+</script>
