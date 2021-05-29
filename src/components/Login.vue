@@ -13,7 +13,7 @@
       <v-text-field
           v-model="password"
           :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
-          :rules="[v => !!v || 'Password field should not be empty', v => v.length > 4 || 'Password should be more than 4 characters']"
+          :rules="[v => !!v || 'Password field should not be empty', v => v.length > 4 || 'Password should be more than four (4) characters']"
           :type="show ? 'text' : 'password'"
           label="Password"
           outlined
